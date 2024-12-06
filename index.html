@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mode Gelap & Siang dengan Tema Luar Angkasa</title>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --background-light: #87CEEB;
+            --background-dark: #0d0d40;
+            --text-light: #1c1c1c;
+            --text-dark: #ffffff;
+            --accent-light: #FFD700;
+            --accent-dark: #FFA500;
+            --bubble-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+            background-color: var(--background-dark);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        body.light-mode {
+            background-color: var(--background-light);
+            color: var(--text-light);
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+        }
+        
+        h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin: 0;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
+        }
+        
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        }
+        
+        body.light-mode p {
+            color: var(--text-light);
+        }
+        
+        .links {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .links a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            text-align: center;
+            color: var(--text-dark);
+            background: var(--accent-dark);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        
+        body.light-mode .links a {
+            color: var(--text-light);
+            background: var(--accent-light);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+        
+        .links a:hover {
+            transform: scale(1.1);
+            background: var(--accent-light);
+        }
+        
+        .mode-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 3;
+        }
+        
+        .mode-toggle button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--accent-dark);
+            transition: color 0.3s ease, transform 0.2s;
+        }
+        
+        .mode-toggle button:hover {
+            color: var(--accent-light);
+            transform: rotate(20deg);
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--bubble-color);
+            animation: float 8s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10%);
+                opacity: 0.3;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            p {
+                font-size: 0.9rem;
+            }
+            .links a {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            .mode-toggle button {
+                font-size: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            p {
+                font-size: 0.8rem;
+            }
+            .links a {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .mode-toggle button {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body class="dark-mode">
+    <div class="mode-toggle">
+        <button onclick="toggleMode()" id="toggle-button">
+            <i data-feather="toggle-left"></i>
+        </button>
+    </div>
+
+    <div class="container">
+        <h1>My Project Website html & css</h1>
+        <p>
+            HTML,CSS,JAVASCRIPT
+        </p>
+
+        <div class="links">
+            <a href="https://syafiqhost.github.io/--property" target="_blank">Open This On Your Mobile Device And Laptop</a>
+            <a href="https://syafiqhost.github.io/-game-/" target="_blank">Open This GAME On Your Mobile Device And Laptop</a>
+            <a href="https://" target="_blank">Open This On Your Laptop</a>
+            <a href="about.html" target="_blank">open my portfolio on your mobile and laptop devices</a>
+        </div>
+    </div>
+
+    <script>
+        function createBubble() {
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+
+            const size = Math.random() * 60 + 10;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.animationDuration = `${Math.random() * 3 + 5}s`;
+
+            document.body.appendChild(bubble);
+
+            // Hapus bubble setelah animasi selesai
+            bubble.addEventListener("animationend", () => {
+                bubble.remove();
+            });
+        }
+
+        function toggleMode() {
+            const body = document.body;
+            const buttonIcon = document.querySelector('#toggle-button i');
+
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
+
+            // Ganti ikon sesuai mode
+            if (body.classList.contains('light-mode')) {
+                buttonIcon.setAttribute('data-feather', 'toggle-right');
+            } else {
+                buttonIcon.setAttribute('data-feather', 'toggle-left');
+            }
+
+            // Render ulang ikon Feather
+            feather.replace();
+        }
+
+        // Interval untuk membuat gelembung
+        setInterval(createBubble, 500);
+
+        // Inisialisasi Feather Icons
+        feather.replace();
+    </script>
+</body>
+
+</html>
